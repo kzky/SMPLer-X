@@ -81,8 +81,9 @@ def main():
         os.makedirs(args.output_folder, exist_ok=True)
 
         ## mmdet inference
-        mmdet_results = inference_detector(model, img_path)
-        mmdet_box = process_mmdet_results(mmdet_results, cat_id=0, multi_person=True)
+        with torch.no_grad():
+            mmdet_results = inference_detector(model, img_path)
+            mmdet_box = process_mmdet_results(mmdet_results, cat_id=0, multi_person=True)
         
         # save original image if no bbox
         if len(mmdet_box[0])<1:
@@ -128,7 +129,8 @@ def main():
 
             # mesh recovery
             with torch.no_grad():
-                out = demoer.model(inputs, targets, meta_info, 'test')
+                with torch.autocast("cuda", dtype=torch.float16):
+                    out = demoer.model(inputs, targets, meta_info, 'test')
             mesh = out['smplx_mesh_cam'].detach().cpu().numpy()[0]
 
             ## save mesh
