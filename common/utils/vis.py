@@ -144,6 +144,7 @@ def render_mesh(img, mesh, face, cam_param, mesh_as_vertices=False):
         # to run on cluster where headless pyrender is not supported for A100/V100
         vertices_2d = perspective_projection(mesh, cam_param)
         img = vis_keypoints(img, vertices_2d, alpha=0.8, radius=2, color=(0, 0, 255))
+        pose_img = None
     else:
         # mesh
         mesh = trimesh.Trimesh(mesh, face)
@@ -180,4 +181,7 @@ def render_mesh(img, mesh, face, cam_param, mesh_as_vertices=False):
         # save to image
         img = rgb * valid_mask + img * (1-valid_mask)
 
-    return img
+        # save to mask
+        pose_img = rgb * valid_mask
+
+    return img, pose_img

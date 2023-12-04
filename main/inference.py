@@ -160,8 +160,8 @@ def main():
             ## render single person mesh
             focal = [cfg.focal[0] / cfg.input_body_shape[1] * bbox[2], cfg.focal[1] / cfg.input_body_shape[0] * bbox[3]]
             princpt = [cfg.princpt[0] / cfg.input_body_shape[1] * bbox[2] + bbox[0], cfg.princpt[1] / cfg.input_body_shape[0] * bbox[3] + bbox[1]]
-            vis_img = render_mesh(vis_img, mesh, smpl_x.face, {'focal': focal, 'princpt': princpt}, 
-                                  mesh_as_vertices=args.show_verts)
+            vis_img, pose_img = render_mesh(vis_img, mesh, smpl_x.face, {'focal': focal, 'princpt': princpt}, 
+                                        mesh_as_vertices=args.show_verts)
             if args.show_bbox:
                 vis_img = cv2.rectangle(vis_img, start_point, end_point, (255, 0, 0), 2)
 
@@ -184,6 +184,12 @@ def main():
         save_path_img = os.path.join(args.output_folder, 'img')
         os.makedirs(save_path_img, exist_ok= True)
         cv2.imwrite(os.path.join(save_path_img, f'{frame_name}'), vis_img[:, :, ::-1])
+
+        # pose_img
+        if pose_img is not None:
+            save_path_pose_img = os.path.join(args.output_folder, 'pose_img')
+            os.makedirs(save_path_pose_img, exist_ok= True)
+            cv2.imwrite(os.path.join(save_path_pose_img, f'{frame_name}'), pose_img[:, :, ::-1])
 
 
 if __name__ == "__main__":

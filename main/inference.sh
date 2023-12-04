@@ -30,7 +30,6 @@ python inference.py \
 --start 1 \
 --end  $end_count \
 --output_folder ${SAVE_DIR} \
---show_verts \
 --show_bbox \
 --save_mesh \
 # --multi_person \
