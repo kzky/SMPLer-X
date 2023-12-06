@@ -71,7 +71,7 @@ def main():
     model = init_detector(config_file, checkpoint_file, device='cuda:0')  # or device='cuda:0'
 
     for frame in tqdm(range(start, end)):
-        img_path = os.path.join(args.img_path, f'{int(frame):06d}.jpg')
+        img_path = os.path.join(args.img_path, f'{int(frame):06d}.png')
 
         # prepare input image
         transform = transforms.ToTensor()
