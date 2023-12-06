@@ -140,6 +140,7 @@ def perspective_projection(vertices, cam_param):
 
 
 def render_mesh(img, mesh, face, cam_param, mesh_as_vertices=False):
+    rgb_img = img
     if mesh_as_vertices:
         # to run on cluster where headless pyrender is not supported for A100/V100
         vertices_2d = perspective_projection(mesh, cam_param)
@@ -184,4 +185,4 @@ def render_mesh(img, mesh, face, cam_param, mesh_as_vertices=False):
         # save to mask
         pose_img = rgb * valid_mask
 
-    return img, pose_img
+    return rgb_img, pose_img
