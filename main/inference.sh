@@ -29,9 +29,9 @@ python inference.py \
 --img_path ${IMG_PATH} \
 --start 1 \
 --end  $end_count \
---output_folder ${SAVE_DIR} \
---show_bbox \
---save_mesh \
+--output_folder ${SAVE_DIR}
+# --show_bbox \
+# --save_mesh \
 # --multi_person \
 # --iou_thr 0.2 \
 # --bbox_thr 20
